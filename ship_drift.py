@@ -52,6 +52,7 @@ def find_predicted_drift_M(predictions, tolerance):
     
     # Find the prediction with the minimum y overall
     min_y_pred = None
+    b = None 
     for pred in predictions:
         if min_y_pred is None or pred['y'] > min_y_pred['y']:
             min_y_pred = pred
@@ -61,6 +62,8 @@ def find_predicted_drift_M(predictions, tolerance):
     if b:
         m = str(b['class'])
         m = int(m[:-1])-1
+    elif b==None: 
+        m = None
 
         #result_text = f"PREDICTED DRIFT MARK : {m} M, {s}"
         return m
@@ -73,6 +76,7 @@ def find_predicted_drift(predictions, tolerance):
     
     # Find the prediction with the minimum y overall
     min_y_pred = None
+    b = None 
     for pred in predictions:
         if min_y_pred is None or pred['y'] > min_y_pred['y']:
             if pred['class'] != "M": 
@@ -82,8 +86,10 @@ def find_predicted_drift(predictions, tolerance):
 
     if b:
         m = int(b['class'])
-
-
+        
+    elif b==None: 
+        m = None 
+        
         #result_text = f"PREDICTED DRIFT MARK : {m} M, {s}"
         return m
     else:
@@ -124,6 +130,7 @@ if uploaded_file:
             M = find_predicted_drift_M(predictions2, tolerance)
             m = find_predicted_drift(predictions1, tolerance)
             
+            
             # Draw bounding boxes and labels on the frame
             for pred in predictions2:
                 x, y, w, h = pred['x'], pred['y'], pred['width'], pred['height']
@@ -142,7 +149,11 @@ if uploaded_file:
                     cv2.putText(frame, f"{label} ", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
             # Convert BGR (OpenCV) to RGB for Streamlit display
-            drift_mark_text = f"PREDICTED DRIFT MARK : {M,m}M"
+            if m:
+                drift_mark_text = f"PREDICTED DRIFT MARK : {M,m}M"
+            else:
+                drift_mark_text = "No DETECTION YET" 
+            
 
             frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             stframe.image(frame_rgb, caption=f"Processed Frame {processed_frames}\n{drift_mark_text}", use_column_width=True)
