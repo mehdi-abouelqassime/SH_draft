@@ -1,4 +1,5 @@
 import streamlit as st
+st.cache_data.clear()
 import cv2
 import tempfile
 import numpy as np
