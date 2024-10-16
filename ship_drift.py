@@ -149,7 +149,7 @@ if uploaded_file:
                     cv2.putText(frame, f"{label} ", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
             # Convert BGR (OpenCV) to RGB for Streamlit display
-            if m:
+            if m is not None:
                 drift_mark_text = f"PREDICTED DRIFT MARK : {M,m}M"
             else:
                 drift_mark_text = "No DETECTION YET" 
