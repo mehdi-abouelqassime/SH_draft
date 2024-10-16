@@ -1,5 +1,5 @@
 import streamlit as st
-st.cache_data.clear()
+#st.cache_data.clear()
 import cv2
 import tempfile
 import numpy as np
@@ -58,17 +58,17 @@ def find_predicted_drift_M(predictions, tolerance):
             min_y_pred = pred
             b = pred
 
-
+    y=None 
     if b:
         m = str(b['class'])
         m = int(m[:-1])-1
-    elif b==None: 
-        m = None
+        y = b['y']
+    else: 
+        m = -1000
 
         #result_text = f"PREDICTED DRIFT MARK : {m} M, {s}"
-        return m
-    else:
-        return "No matching predictions found.", None, None, None
+    return m,y
+
     
 
 def find_predicted_drift(predictions, tolerance):
@@ -83,17 +83,15 @@ def find_predicted_drift(predictions, tolerance):
                 min_y_pred = pred
                 b = pred
 
-
+    y=None
     if b:
         m = int(b['class'])
-        
-    elif b==None: 
+        y = b['y']
+    else: 
         m = None 
         
         #result_text = f"PREDICTED DRIFT MARK : {m} M, {s}"
-        return m
-    else:
-        return "No matching predictions found.", None, None, None
+    return m,y
 
 if uploaded_file:
     # Save the uploaded video file to a temporary location
@@ -127,8 +125,10 @@ if uploaded_file:
             # Find the predicted drift mark
             #drift_mark_text, min_y_m_label, a, b = find_predicted_drift(predictions, tolerance)
 
-            M = find_predicted_drift_M(predictions2, tolerance)
-            m = find_predicted_drift(predictions1, tolerance)
+            mbig,ybig = find_predicted_drift_M(predictions2, tolerance)
+            msmall, ysmall = find_predicted_drift(predictions1, tolerance)
+
+
             
             
             # Draw bounding boxes and labels on the frame
@@ -149,8 +149,11 @@ if uploaded_file:
                     cv2.putText(frame, f"{label} ", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
             # Convert BGR (OpenCV) to RGB for Streamlit display
-            if m is not None:
-                drift_mark_text = f"PREDICTED DRIFT MARK : {M,m}M"
+            if mbig != -1000:
+                if ybig>ysmall: 
+                    mbig = mbig+1
+                    msmall = 0
+                drift_mark_text = f"PREDICTED DRIFT MARK : {mbig,msmall}M"
             else:
                 drift_mark_text = "No DETECTION YET" 
             
