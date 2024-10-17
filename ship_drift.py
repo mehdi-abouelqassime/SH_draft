@@ -132,9 +132,10 @@ if uploaded_file:
                     cv2.putText(frame, f"{label} ", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
             if mbig != -1000:
-                if ybig>ysmall and ysmall!=None: 
-                    mbig = mbig+1
-                    msmall = 0
+                if ysmall!=None: 
+                    if ybig>ysmall:
+                        mbig = mbig+1
+                        msmall = 0
                 elif ysmall==None:
                     msmall = 0
                 drift_mark_text = f"PREDICTED DRIFT MARK : {mbig,msmall}M"
