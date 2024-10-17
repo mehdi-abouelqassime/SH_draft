@@ -135,7 +135,7 @@ if uploaded_file:
                 if ybig>ysmall and ysmall!=None: 
                     mbig = mbig+1
                     msmall = 0
-                else if ysmall==None:
+                elif ysmall==None:
                     msmall = 0
                 drift_mark_text = f"PREDICTED DRIFT MARK : {mbig,msmall}M"
             else:
