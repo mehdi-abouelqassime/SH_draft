@@ -26,7 +26,7 @@ uploaded_file = st.file_uploader("Choose a video file", type=["mp4", "avi", "mov
 
 min_confidence = st.slider('Min Confidence', 0, 100, 50)
 max_overlap = st.slider('Max Overlap', 0, 100, 30)
-sampling_time = st.number_input('Sampling Time (in seconds)', min_value=0.1, value=1.0, step=0.1)
+sampling_time = st.number_input('Sampling Time (in seconds)', min_value=0.0001, value=1.0, step=0.1)
 show_labels = st.checkbox("Show Labels", value=True)
 stroke_width = st.selectbox('Stroke Width', [1, 2, 5, 10], index=1)
 tolerance = st.number_input('Y Tolerance', min_value=0.0, value=5.0, step=0.1)
