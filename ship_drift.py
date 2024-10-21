@@ -53,6 +53,7 @@ def find_predicted_drift_M(predictions, tolerance):
     y=None 
     if b:
         m = str(b['class'])
+        print(m)
         m = int(m[:-1])-1
         y = b['y']
     else: 
