@@ -108,7 +108,7 @@ if uploaded_file:
         
         if frame_count % sampling_frame_interval == 0:
             predictions1 = run_inference_on_frame(model, frame, 50 / 100, max_overlap / 100)
-            predictions2 = run_inference_on_frame(model2, frame, 30 / 100, max_overlap / 100)
+            predictions2 = run_inference_on_frame(model2, frame, 40 / 100, max_overlap / 100)
             
             #drift_mark_text, min_y_m_label, a, b = find_predicted_drift(predictions, tolerance)
 
