@@ -106,8 +106,8 @@ if uploaded_file:
             break
         
         if frame_count % sampling_frame_interval == 0:
-            predictions1 = run_inference_on_frame(model, frame, 10 / 100, max_overlap / 100)
-            predictions2 = run_inference_on_frame(model2, frame, 10 / 100, max_overlap / 100)
+            predictions1 = run_inference_on_frame(model, frame, 50 / 100, max_overlap / 100)
+            predictions2 = run_inference_on_frame(model2, frame, 50 / 100, max_overlap / 100)
             
             #drift_mark_text, min_y_m_label, a, b = find_predicted_drift(predictions, tolerance)
 
@@ -150,7 +150,7 @@ if uploaded_file:
             processed_frames += 1
 
         frame_count += 1
-    Drift = np.mean(Final_value_list) 
+    Drift = float(np.median(Final_value_list),1) 
     drift_mark_text = f"FINAL PREDICTED DRIFT MARK : {Drift}M"
     stframe.image(frame_rgb, caption=f"Processed Frame {processed_frames} \n {drift_mark_text}", use_column_width=True)    
 
