@@ -99,7 +99,7 @@ if uploaded_file:
 
     frame_count = 0
     processed_frames = 0
-
+    Final_value_list = []
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
@@ -138,7 +138,9 @@ if uploaded_file:
                         msmall = 0
                 elif ysmall==None:
                     msmall = 0
-                drift_mark_text = f"PREDICTED DRIFT MARK : {mbig,msmall}M"
+                drift_mark_text = f" INSTANT PREDICTED DRIFT MARK : {mbig,msmall}M"
+                Final_value_list.append(float(mbig,msmall))
+                
             else:
                 drift_mark_text = "No DETECTION YET" 
             
@@ -148,6 +150,9 @@ if uploaded_file:
             processed_frames += 1
 
         frame_count += 1
+    Drift = np.mean(Final_value_list) 
+    drift_mark_text = f"FINAL PREDICTED DRIFT MARK : {Drift}M"
+    stframe.image(frame_rgb, caption=f"Processed Frame {processed_frames} \n {drift_mark_text}", use_column_width=True)    
 
     cap.release()
     st.success(f"Finished processing {processed_frames} sampled frames.")
