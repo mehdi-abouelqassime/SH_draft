@@ -151,7 +151,7 @@ if uploaded_file:
             processed_frames += 1
 
         frame_count += 1
-    Drift = round(np.median(Final_value_list),1) 
+    Drift = round(np.min(Final_value_list),1) 
     drift_mark_text = f"FINAL PREDICTED DRIFT MARK : {Drift}M"
     stframe.image(frame_rgb, caption=f"Processed Frame {processed_frames} \n {drift_mark_text}", use_column_width=True)    
 
