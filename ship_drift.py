@@ -4,6 +4,7 @@ import cv2
 import tempfile
 import numpy as np
 from roboflow import Roboflow
+from ultralytics import YOLO
 
 
 
@@ -17,8 +18,8 @@ model = project.version(VERSION1).model
 
 
 project2 = rf.workspace().project("ship2")  
-model2 = project2.version(VERSION2).model  
-
+#model2 = project2.version(VERSION2).model  
+model2 = YOLO("best.pt")
 
 st.title("OCP - JORF - SHIP DRAFT WATER DETECTION  ")
 
