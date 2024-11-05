@@ -3,7 +3,7 @@ import streamlit as st
 import tempfile
 import numpy as np
 from roboflow import Roboflow
-#import cv2
+import cv2
 from ultralytics import YOLO
 
 
