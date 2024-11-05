@@ -1,4 +1,4 @@
-opencv-python-headless 
 numpy
 roboflow
 ultralytics
+opencv-python-headless 
