@@ -3,9 +3,9 @@ import streamlit as st
 import tempfile
 import numpy as np
 from roboflow import Roboflow
-#from ultralytics import YOLO
 import cv2
-import torch
+from ultralytics import YOLO
+
 
 VERSION1 = 2
 VERSION2 = 1
