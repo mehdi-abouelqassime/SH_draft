@@ -44,6 +44,8 @@ def run_inference_on_frame_ultralytics(model, frame, min_confidence, max_overlap
     temp_image = tempfile.NamedTemporaryFile(suffix=".jpg", delete=False)
     cv2.imwrite(temp_image.name, frame)
     
+    class_names = model.names
+    
     # Run the YOLO model prediction
     results = model.predict(temp_image.name, conf=min_confidence, iou=max_overlap)
     
@@ -52,12 +54,14 @@ def run_inference_on_frame_ultralytics(model, frame, min_confidence, max_overlap
     for box in results[0].boxes:
         # Extract bounding box details and convert to required format
         x_center, y_center, width, height = box.xywh[0]
+        class_id = int(box.cls.item()) if box.cls is not None else -1
+        class_name = class_names.get(class_id, "unknown") 
         predictions.append({
             "x": x_center.item(),  # Center x-coordinate
             "y": y_center.item(),  # Center y-coordinate
             "width": width.item(),
             "height": height.item(),
-            "class": box.id,  # Class ID as integer
+            "class": class_name,  # Class ID as integer
             "confidence": box.conf.item()  # Confidence score
         })
     
