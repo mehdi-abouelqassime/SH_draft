@@ -57,7 +57,7 @@ def run_inference_on_frame_ultralytics(model, frame, min_confidence, max_overlap
             "y": y_center.item(),  # Center y-coordinate
             "width": width.item(),
             "height": height.item(),
-            "class": box.cls.item(),  # Class ID as integer
+            "class": box.cls,  # Class ID as integer
             "confidence": box.conf.item()  # Confidence score
         })
     
