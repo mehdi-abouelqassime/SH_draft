@@ -65,7 +65,7 @@ def run_inference_on_frame_ultralytics(model, frame, min_confidence, max_overlap
     temp_image.close()
     
     # Return the structured predictions
-    return {"predictions": predictions}
+    return  predictions
     
 
 def find_predicted_drift_M(predictions, tolerance):
