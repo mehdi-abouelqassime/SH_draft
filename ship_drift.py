@@ -35,10 +35,38 @@ def run_inference_on_frame(model, frame, min_confidence, max_overlap):
     
     temp_image = tempfile.NamedTemporaryFile(suffix=".jpg", delete=False)
     cv2.imwrite(temp_image.name, frame)
-    #predictions = model.predict(temp_image.name, confidence=min_confidence, overlap=max_overlap).json()
-    predictions = model.predict(temp_image.name).json()
+    predictions = model.predict(temp_image.name, confidence=min_confidence, overlap=max_overlap).json()
     
     return predictions['predictions']
+
+def run_inference_on_frame_ultralytics(model, frame, min_confidence, max_overlap):
+    # Save the frame temporarily to run inference
+    temp_image = tempfile.NamedTemporaryFile(suffix=".jpg", delete=False)
+    cv2.imwrite(temp_image.name, frame)
+    
+    # Run the YOLO model prediction
+    results = model.predict(temp_image.name, conf=min_confidence, iou=max_overlap)
+    
+    # Prepare predictions in Roboflow-like JSON format
+    predictions = []
+    for box in results[0].boxes:
+        # Extract bounding box details and convert to required format
+        x_center, y_center, width, height = box.xywh[0]
+        predictions.append({
+            "x": x_center.item(),  # Center x-coordinate
+            "y": y_center.item(),  # Center y-coordinate
+            "width": width.item(),
+            "height": height.item(),
+            "class": int(box.cls.item()),  # Class ID as integer
+            "confidence": box.conf.item()  # Confidence score
+        })
+    
+    # Clean up the temporary file
+    temp_image.close()
+    
+    # Return the structured predictions
+    return {"predictions": predictions}
+    
 
 def find_predicted_drift_M(predictions, tolerance):
     """Find the predicted drift mark based on the 'M' label - to modify later."""
@@ -109,7 +137,7 @@ if uploaded_file:
         
         if frame_count % sampling_frame_interval == 0:
             predictions1 = run_inference_on_frame(model, frame, min_confidence / 100, max_overlap / 100)
-            predictions2 = run_inference_on_frame(model2, frame, 20 / 100, max_overlap / 100)
+            predictions2 = run_inference_on_frame_ultralytics(model2, frame, 20 / 100, max_overlap / 100)
             
             #drift_mark_text, min_y_m_label, a, b = find_predicted_drift(predictions, tolerance)
 
