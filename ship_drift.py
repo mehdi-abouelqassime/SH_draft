@@ -35,8 +35,9 @@ def run_inference_on_frame(model, frame, min_confidence, max_overlap):
     
     temp_image = tempfile.NamedTemporaryFile(suffix=".jpg", delete=False)
     cv2.imwrite(temp_image.name, frame)
-    predictions = model.predict(temp_image.name, confidence=min_confidence, overlap=max_overlap).json()
-
+    #predictions = model.predict(temp_image.name, confidence=min_confidence, overlap=max_overlap).json()
+    predictions = model.predict(temp_image.name).json()
+    
     return predictions['predictions']
 
 def find_predicted_drift_M(predictions, tolerance):
