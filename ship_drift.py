@@ -3,9 +3,9 @@ import streamlit as st
 import tempfile
 import numpy as np
 from roboflow import Roboflow
-from ultralytics import YOLO
+#from ultralytics import YOLO
 import cv2
-
+import torch
 
 VERSION1 = 2
 VERSION2 = 1
@@ -18,7 +18,8 @@ model = project.version(VERSION1).model
 
 project2 = rf.workspace().project("ship2")  
 #model2 = project2.version(VERSION2).model  
-model2 = YOLO("best.pt")
+model2 = torch.load("best.pt")
+model2.eval()
 
 st.title("OCP - JORF - SHIP DRAFT WATER DETECTION  ")
 
