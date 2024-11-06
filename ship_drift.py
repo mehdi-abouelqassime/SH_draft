@@ -117,8 +117,8 @@ def find_predicted_drift(predictions, tolerance):
             print(b['class'])
             m = int(b['class'])
             y = b['y']
-        else: 
-            m = None 
+    else: 
+        m = None 
             
             #result_text = f"PREDICTED DRIFT MARK : {m} M, {s}"
     return m,y
