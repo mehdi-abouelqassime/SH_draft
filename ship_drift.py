@@ -176,7 +176,7 @@ if uploaded_file:
                 x2 = int(x + w / 2)
                 y2 = int(y + h / 2)
                 
-                cv2.rectangle(frame, (x1, y1), (x2, y2), color=(0, 255, 0), thickness=stroke_width)
+                cv2.rectangle(frame, (x1, y1), (x2, y2), color=(255, 0, 0), thickness=stroke_width)
                 if show_labels:
                     cv2.putText(frame, f"{label} ", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
                     
