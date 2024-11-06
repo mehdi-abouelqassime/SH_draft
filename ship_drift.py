@@ -111,7 +111,7 @@ def find_predicted_drift(predictions, tolerance):
                 b = pred
 
     y=None
-    if b and  b!=1:
+    if b and  (b==2 or b==4 or b==6 or b==8):
         m = int(b['class'])
         y = b['y']
     else: 
