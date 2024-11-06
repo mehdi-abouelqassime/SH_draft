@@ -112,14 +112,15 @@ def find_predicted_drift(predictions, tolerance):
                 b = pred
 
     y=None
-    if (int(b['class'])==2 or int(b['class'])==4 or int(b['class'])==6 or int(b['class'])==8):
-        print(b['class'])
-        m = int(b['class'])
-        y = b['y']
-    else: 
-        m = None 
-        
-        #result_text = f"PREDICTED DRIFT MARK : {m} M, {s}"
+    if b: 
+        if (int(b['class'])==2 or int(b['class'])==4 or int(b['class'])==6 or int(b['class'])==8):
+            print(b['class'])
+            m = int(b['class'])
+            y = b['y']
+        else: 
+            m = None 
+            
+            #result_text = f"PREDICTED DRIFT MARK : {m} M, {s}"
     return m,y
 
 if uploaded_file:
