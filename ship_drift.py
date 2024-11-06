@@ -176,6 +176,7 @@ if uploaded_file:
                         msmall = 0
                 elif ysmall==None:
                     msmall = 0
+                    mbig = mbig+1
                 drift_mark_text = f" INSTANT PREDICTED DRIFT MARK : {mbig,msmall}M"
                 Final_value_list.append(float(str(str(mbig)+"."+str(msmall))))
                 
