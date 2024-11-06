@@ -14,6 +14,7 @@ rf = Roboflow(api_key="rYoEijlmSCx1L1TuA9ae")
 
 project = rf.workspace().project("ship-numbers-detection-yauno")  
 model = project.version(VERSION1).model 
+model1 = YOLO("best_1.pt")
 
 
 project2 = rf.workspace().project("ship2")  
@@ -141,7 +142,7 @@ if uploaded_file:
             break
         
         if frame_count % sampling_frame_interval == 0:
-            predictions1 = run_inference_on_frame(model, frame, min_confidence / 100, max_overlap / 100)
+            predictions1 = run_inference_on_frame_ultralytics(model1, frame, min_confidence / 100, max_overlap / 100)
             predictions2 = run_inference_on_frame_ultralytics(model2, frame, 30 / 100, max_overlap / 100)
             
             #drift_mark_text, min_y_m_label, a, b = find_predicted_drift(predictions, tolerance)
