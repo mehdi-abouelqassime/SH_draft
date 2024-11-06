@@ -165,7 +165,21 @@ if uploaded_file:
                 cv2.rectangle(frame, (x1, y1), (x2, y2), color=(0, 255, 0), thickness=stroke_width)
                 if show_labels:
                     cv2.putText(frame, f"{label} ", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-
+                    
+            for pred in predictions1:
+                x, y, w, h = pred['x'], pred['y'], pred['width'], pred['height']
+                label = pred['class']
+                confidence = pred['confidence']
+                
+                x1 = int(x - w / 2)
+                y1 = int(y - h / 2)
+                x2 = int(x + w / 2)
+                y2 = int(y + h / 2)
+                
+                cv2.rectangle(frame, (x1, y1), (x2, y2), color=(0, 255, 0), thickness=stroke_width)
+                if show_labels:
+                    cv2.putText(frame, f"{label} ", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                    
             if mbig != -1000:
                 if ysmall!=None: 
                     if ybig>ysmall:
