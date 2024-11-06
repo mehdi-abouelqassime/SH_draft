@@ -168,6 +168,9 @@ if uploaded_file:
 
             if mbig != -1000:
                 if ysmall!=None: 
+                    print(msmall)
+                    print(ysmall)
+                    print(ybig)
                     if ybig>ysmall:
                         mbig = mbig+1
                         msmall = 0
