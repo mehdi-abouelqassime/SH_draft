@@ -111,7 +111,7 @@ def find_predicted_drift(predictions, tolerance):
                 b = pred
 
     y=None
-    if (b['class']==2 or b['class']==4 or b['class']==6 or b['class']==8):
+    if (int(b['class'])==2 or int(b['class'])==4 or int(b['class'])==6 or int(b['class'])==8):
         m = int(b['class'])
         y = b['y']
     else: 
@@ -168,9 +168,6 @@ if uploaded_file:
 
             if mbig != -1000:
                 if ysmall!=None: 
-                    print(msmall)
-                    print(ysmall)
-                    print(ybig)
                     if ybig>ysmall:
                         mbig = mbig+1
                         msmall = 0
