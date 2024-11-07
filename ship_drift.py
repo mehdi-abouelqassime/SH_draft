@@ -19,7 +19,8 @@ model1 = YOLO("best (3).pt")
 
 project2 = rf.workspace().project("ship2")  
 #model2 = project2.version(VERSION2).model  
-model2 = YOLO("best.pt")
+#model2 = YOLO("best.pt")
+model2 = YOLO("best (4).pt")
 
 st.title("OCP - JORF - SHIP DRAFT WATER DETECTION  ")
 
