@@ -14,7 +14,7 @@ rf = Roboflow(api_key="rYoEijlmSCx1L1TuA9ae")
 
 project = rf.workspace().project("ship-numbers-detection-yauno")  
 model = project.version(VERSION1).model 
-model1 = YOLO("best (2).pt")
+model1 = YOLO("best (3).pt")
 
 
 project2 = rf.workspace().project("ship2")  
